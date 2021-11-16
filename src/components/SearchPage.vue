@@ -1,10 +1,7 @@
 <template>
  <div id='bkg'>
-    <!-- <test id='top-bar'>
-    </test> -->
     <div id='top-bar'>
       <!-- 顶部导航区 -->
-      <!-- <img id='icon' float="left" src='@/assets/guohui@2x.png' style="cursor:pointer" v-on:click="backToIndex()"> -->
       <div id='title' style="cursor:pointer" v-on:click="backToIndex()">民间借贷裁判规则库</div>
       <div v-if="screenWidth > 750" id='search-bar'>
         <el-input placeholder="请输入搜索内容" v-model="searchContent" class="input-with-select">
@@ -13,11 +10,10 @@
             <el-option label="裁判观点" value="guandian"></el-option>
             <el-option label="裁判依据" value="yiju"></el-option>
           </el-select>
-          <el-button slot="append" type="primary" sytle="width: 70px;" icon="el-icon-search" v-on:click="submitQuery()"></el-button>
+          <el-button slot="append" type="primary" sytle="width: 100vw;" icon="el-icon-search" v-on:click="submitQuery()"></el-button>
         </el-input>
       </div>
-      <!-- <el-button v-if="screenWidth > 750" type="primary" sytle="width: 70px;"  slot="append" icon="el-icon-search" v-on:click="submitQuery()"></el-button> -->
-      <el-button v-else slot="reference" id='circlesearch' type="primary" sytle="width: 30px;" icon="el-icon-search" @click="seabarVisible = true"></el-button>
+      <el-button v-else slot="reference" id='circlesearch' type="primary" sytle="width: 3em;" icon="el-icon-search" @click="seabarVisible = true"></el-button>
       <el-dialog
         :visible.sync="seabarVisible"
         width="90%" :modal="false">
@@ -26,93 +22,72 @@
               <el-option label="裁判观点" value="guandian"></el-option>
               <el-option label="裁判依据" value="yiju"></el-option>
             </el-select>
-            <el-button slot="append" type="primary" sytle="width: 30px;" icon="el-icon-search" @click="submitQuery()"></el-button>
+            <el-button slot="append" type="primary" sytle="width: 3em;" icon="el-icon-search" @click="submitQuery()"></el-button>
         </el-input>
       </el-dialog>
     </div>
     <div id="welcome">
-      <!-- 导航式检索区 -->
-      <!-- <el-row type="flex" justify="center">
-          <el-col :span="24" style="height:450px">
-            <el-card class="box-card" >
-            <el-tabs tab-position="left" style="width:1300px" v-model="searchClass">
-              <el-tab-pane v-for="(item,index) in this.classList" :key="index" :label="item" :name="item">
-                  <el-tag v-for="(issueName,issueId) in issueList[index]" :key="issueId">{{issueName}}</el-tag>
-              </el-tab-pane>
-            </el-tabs>
-            </el-card>
-          </el-col>
-      </el-row> -->
       <el-row style="width:90%"  type="flex" justify="center">
         <!-- 内容展示区 -->
         <div id="viewContent" :style="{width: widthData}">
           <el-col :span="24" >
             <el-row type="flex" justify="space-between">
-              <el-col :span="21" style="margin:10px 20px">
+              <el-col :span="21" style="margin:1em 2em">
                 <div id="content-icon">
                   <i class="el-icon-notebook-2"></i>
-                  <span float='left' style="margin-right:20px">裁判规则/观点列表</span>
-                  <!-- <span  style="color: #1F589B">类别</span> -->
-                  <el-select float='left' v-model="searchClass" @change="handleCommand" size="small" style="width:170px" placeholder="争议类型选择">
+                  <span float='left' style="margin-right:2em">裁判规则/观点列表</span>
+                  <el-select float='left' v-model="searchClass" @change="handleCommand" size="small" style="width:10em" placeholder="争议类型选择">
                     <el-option
                       :label="item" :value="item" v-for="(item, classID) in classList" :key="classID">
                     </el-option>
                   </el-select>
-                  <el-select float='left' v-model="selectIssue" @change="handleIssue" size="small" style="width:170px" placeholder="争议焦点选择">
+                  <el-select float='left' v-model="selectIssue" @change="handleIssue" size="small" style="width:10em" placeholder="争议焦点选择">
                     <el-option
                       :label="issue" :value="issue" v-for="(issue,issueId) in issueListItems" :key="issueId">
                     </el-option>
                   </el-select>
-                  <!-- <el-dropdown @command="handleCommand">
-                  <span class="el-dropdown-link" style="color: #1F589B;">
-                      类别：{{ searchClass?searchClass:'全部' }}<i class="el-icon-arrow-down el-icon--right"></i>
-                  </span>
-                  <el-dropdown-menu slot="dropdown">
-                    <el-dropdown-item v-for="item in classList" :key="item" :command="item">{{item}}</el-dropdown-item>
-                  </el-dropdown-menu>
-                  </el-dropdown> -->
                 </div>
               </el-col>
               <el-col :span="3">
                 <div id="reply">
-                  <i class="el-icon-document-copy" style="margin-right:5px"></i>
+                  <i class="el-icon-document-copy" style="margin-right:0.5em"></i>
                   <el-button id="replyClick"  type="text" @click="dialogVisible = true">反馈意见</el-button>
                 </div>
               </el-col>
             </el-row>
           </el-col>
           <el-col :span="24">
-          <div style="margin:0 20px" v-loading="loading" >
-            <el-card style = "margin-top:10px" v-for="(item,index) in searchRes[0]" :key="index" shadow="hover" id="listcard">
-              <span style="font-size:15px;font-weight:bold;margin-right:5px">观点/规则 {{index.replace(/[^\d]/g,' ')}}</span>
+          <div style="margin:0 2em" v-loading="loading" >
+            <el-card style = "margin-top:1em" v-for="(item,index) in searchRes[0]" :key="index" shadow="hover" id="listcard">
+              <span style="font-size:1.1em;font-weight:bold;margin-right:0.5em">观点/规则 {{index.replace(/[^\d]/g,' ')}}</span>
               <span><el-tag type="primary">{{item["争议一级"]}}</el-tag></span>
               <span><el-tag type="success">{{item["争议二级"]}}</el-tag></span>
               <span><el-tag type="warning">{{item["争议焦点"]}}</el-tag></span>
               <el-collapse v-model="activeNames[index]">
               <el-collapse-item name="1">
                 <template slot="title">
-                  <span style="font-size:13px;font-weight:bold"><i class="el-icon-success" style="margin-right:5px"></i>裁判观点</span>
+                  <span style="font-size:1.1em;font-weight:bold"><i class="el-icon-success" style="margin-right:0.5em"></i>裁判观点</span>
                 </template>
                 <div v-if = "!item['裁判观点']">暂无内容</div>
                 <div v-else>{{item['裁判观点']}}</div>
               </el-collapse-item>
               <el-collapse-item name="2">
                 <template slot="title">
-                  <span style="font-size:13px;font-weight:bold"><i class="el-icon-success" style="margin-right:5px"></i>裁判依据</span>
+                  <span style="font-size:1.1em;font-weight:bold"><i class="el-icon-success" style="margin-right:0.5em"></i>裁判依据</span>
                 </template>
                 <div v-if = "!item['裁判依据']">暂无内容</div>
                 <div v-else>{{item['裁判依据']}}</div>
               </el-collapse-item>
               <el-collapse-item name="3">
                 <template slot="title">
-                  <span style="font-size:13px;font-weight:bold"><i class="el-icon-success" style="margin-right:5px"></i>法官说理</span>
+                  <span style="font-size:1.1em;font-weight:bold"><i class="el-icon-success" style="margin-right:0.5em"></i>法官说理</span>
                 </template>
                 <div v-if = "!item['说理']">暂无内容</div>
                 <div v-else>{{item['说理']}}</div>
               </el-collapse-item>
               <el-collapse-item name="4">
                 <template slot="title">
-                  <span style="font-size:13px;font-weight:bold"><i class="el-icon-success" style="margin-right:5px"></i>司法判例</span>
+                  <span style="font-size:1.1em;font-weight:bold"><i class="el-icon-success" style="margin-right:0.5em"></i>司法判例</span>
                 </template>
                 <div v-if = "!item['判例']">暂无内容</div>
                 <div v-else>{{item['判例']}}</div>
@@ -123,12 +98,18 @@
           </el-col>
         </div>
       </el-row>
-            <div id="bottomsupport">
-              <span>技术支持</span><img style="margin-left:10px;margin-top:5px" height="25" width="70" src='@/assets/tsinghua@2x.png'>
-              &nbsp;&nbsp;&nbsp;&nbsp;
-              <a href="https://beian.miit.gov.cn/" class="technology-support-tip">京ICP备2021010617号 </a>
-            </div>
-            <span id="bottomtip">请使用最新版本Chrome浏览器</span>
+      <div class="index-footer">
+      <!-- 底栏容器 -->
+        <div class="support-box">
+          <span class="technology-support-tip">技术支持</span>
+          <img height="18" width="60" src='@/assets/tsinghua@2x.png'>
+          &nbsp;&nbsp;&nbsp;&nbsp;
+          <a href="https://beian.miit.gov.cn/" class="technology-support-tip">京ICP备2021010617号 </a>
+        </div>
+        <div class="tip-box">
+          <span calss="new-version-tip">请使用最新版本Chrome浏览器</span>
+        </div>
+      </div>
     </div>
     <el-dialog
       title="反馈意见"
@@ -140,11 +121,11 @@
           placeholder="请输入您的宝贵建议 (提交新增裁判观点，请注明案号来源；如果有修改意见，请注明裁判观点序号)"
           v-model="textarea">
         </el-input>
-      <el-form  :model="commentForm" style="margin-top: 20px">
-        <el-form-item label-width="100px" label="联系方式：" size="small">
+      <el-form  :model="commentForm" style="margin-top: 2em">
+        <el-form-item label-width="12em" label="联系方式：" size="small">
           <el-input v-model="commentForm.contact" placeholder="手机、邮箱等"></el-input>
         </el-form-item>
-        <el-form-item label-width="100px" label="单位及职务：" size="small">
+        <el-form-item label-width="12em" label="单位及职务：" size="small">
           <el-input v-model="commentForm.workplace" placeholder="单位及职务"></el-input>
         </el-form-item>
       </el-form>
@@ -158,7 +139,6 @@
 
 <script>
 import Qs from 'qs'
-// import test from './components/test.vue'
 export default {
   name: 'Welcome',
   // components: { test },
@@ -360,7 +340,7 @@ export default {
 </script>
 
 <style scoped>
-  .el-select { width: 110px; border: 0;}
+  .el-select { width: 8em; border: 0;}
   .el-dropdown-link {
     cursor: pointer;
     color: #409EFF;
@@ -377,30 +357,30 @@ export default {
     border-color:skyblue;
   }
   .el-collapse{
-    margin-top: 10px;
+    margin-top: 1em;
   }
   #search-bar {
     width: 40%;
   }
   #title{
-  width: 180px;
-  height: 25px;
-  font-size: 18px;
+  width: 10em;
+  height: 1.2em;
+  font-size: 1.5em;
   font-family: "Microsoft YaHei",sans-serif;
   font-weight: 400;
   color: #FFFFFF;
-  line-height: 25px;
+  line-height: 1em;
 }
 #icon{
-  width: 28px;
-  height: 32px;
-  margin-right: 12px;
+  width: 2em;
+  height: 2.5em;
+  margin-right: 1em;
 }
 #top-bar {
   z-index: 100;
   position: fixed;
   width: 100%;
-  height: 60px;
+  height: 4em;
   background: #1F589B;
   border: 1px solid #E6E6E6;
   display: flex;
@@ -410,27 +390,16 @@ export default {
   left: 0;
   right: 0;
 }
-#midbar{
-  z-index: 100;
-  /* position: absolute; */
-  display: flex;
-  width: 95%;
-  float: left;
-  top: 60px;
-}
 #viewContent{
     overflow: auto;
-    height: 950px;
     background: #FFFFFF;
     float: left;
   }
 #welcome {
   position: absolute;
   width: 100%;
-  /* height: 1510px; */
-  height: 1100px;
   background: #F0F2F5;
-  margin: 0;
+  margin:4em 0 0 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -438,53 +407,56 @@ export default {
 }
 #bkg{
   margin: 0;
-  width: 100%;
+  width: 100vw;
+  font-size:1vw;
+  position: relative;
 }
 #content-icon{
-    top: 20px;
-    left: 20px;
-    font-size: 16px;
+    top: 2em;
+    left: 2em;
+    font-size: 1em;
     font-family:"Microsoft YaHei",sans-serif;
 }
 #reply{
-  font-size: 12px;
-  top: 10px;
-  right: 20px;
+  font-size: 1em;
+  top: 1em;
+  right: 2em;
 }
 #replyClick{
-  font-size: 12px;
+  font-size: 0.8em;
   color: #1F589B;
   font-family:"Microsoft YaHei",sans-serif;
 }
 #listcard{
-  margin:10px,20px
+  margin:1em,2em
 }
-#bottomtip{
-  position:absolute;
-  bottom: 5px;
-  width: 168px;
-  height: 17px;
-  font-size: 12px;
-  font-family: Fantasy;
-  font-weight: 400;
-  color: #999999;
-  line-height: 17px;
-}
-#bottomsupport{
-  position:absolute;
-  height: 17px;
-  font-size: 12px;
-  font-family: Fantasy;
-  font-weight: 400;
-  color: #999999;
-  line-height: 17px;
-  bottom: 40px;
-}
-  #bottomsupport a {
+.index-footer {
+    background: #F0F2F5;
+    height: 8%;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;        /* flex子项在flex容器的当前行的侧轴（纵轴）方向上的对齐方式 */
+    justify-content: center;    /* 用于设置或检索弹性盒子元素在主轴（横轴）方向上的对齐方式 */
+  }
+.support-box {
+    font-family: Fantasy;
+    font-weight: 400;
+    font-size: 0.6em;
+    color: #999999;
+  }
+  .support-box a {
     text-decoration: none;
     font-family: Fantasy;
     font-weight: 400;
-    font-size: 10px;
+    font-size: 0.6em;
     color: #999999;
+  }
+  .tip-box {
+    font-family: Fantasy;
+    font-weight: 400;
+    font-size: 0.6em;
+    color: #999999;;
   }
 </style>

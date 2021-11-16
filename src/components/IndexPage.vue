@@ -22,7 +22,8 @@
           <el-tab-pane v-for="(categoryName, categoryIndex) in categoryList"
             :key="categoryIndex"
             :label="categoryName"
-            :name="categoryName">
+            :name="categoryName"
+            >
             <div class="controversy-focus-link-group">
               <div class="controversy-focus-link-box"
                 v-for="(controversyFocusName, controversyFocusId) in controversyFocusList[categoryIndex]"
@@ -150,13 +151,18 @@ export default {
 
 <style>
   #index-page {
+    position: absolute;
+    font-size:1vw;
+    margin: 0;
     background: gray;
-    height: 100%;
+    height: 100vh;
+    width:100vw;
     display: flex;
     flex-direction: column;
     align-items: center;        /* flex子项在flex容器的当前行的侧轴（纵轴）方向上的对齐方式 */
     justify-content: center;    /* 用于设置或检索弹性盒子元素在主轴（横轴）方向上的对齐方式 */
     overflow: auto;
+    min-width:700x;
   }
   .index-header {
     height: 30%;
@@ -194,7 +200,7 @@ export default {
     align-items: center;        /* flex子项在flex容器的当前行的侧轴（纵轴）方向上的对齐方式 */
     justify-content: center;    /* 用于设置或检索弹性盒子元素在主轴（横轴）方向上的对齐方式 */
     color: #FFFFFF;
-    font-size: 48px;
+    font-size: 3.5em;
   }
   .title-img {
     /* align-items: center; */
@@ -208,14 +214,14 @@ export default {
     width: 60%;
   }
   .el-select {
-    width: 110px;
+    width: 8vw;
     border: 0;
   }
   .search-input-with-select {
     border: 0;
   }
   .el-button {
-    width: 80px;
+    width: 6vw;
   }
   .navigation-bar {
     height: 90%;
@@ -225,7 +231,6 @@ export default {
     justify-content: center;    /* 用于设置或检索弹性盒子元素在主轴（横轴）方向上的对齐方式 */
   }
   .category-tabs {
-    /* height: 100%; */
     display: flex;
     justify-content: center;    /* 用于设置或检索弹性盒子元素在主轴（横轴）方向上的对齐方式 */
   }
@@ -239,30 +244,28 @@ export default {
     /* background: red; */
   }
   .el-link {
-    font-size: 15px;
+    font-size: 1em;
   }
   .controversy-focus-link-box {
-    /* padding: 3px 10px; */
-    margin: 9px 10px;
-    font-size: 14px;
+    margin: 0.8em 0.5em;
   }
   .support-box {
     font-family: Fantasy;
     font-weight: 400;
-    font-size: 10px;
+    font-size: 0.6em;
     color: #999999;
   }
   .support-box a {
     text-decoration: none;
     font-family: Fantasy;
     font-weight: 400;
-    font-size: 10px;
+    font-size: 0.6em;
     color: #999999;
   }
   .tip-box {
     font-family: Fantasy;
     font-weight: 400;
-    font-size: 10px;
+    font-size: 0.6em;
     color: #999999;;
   }
 </style>

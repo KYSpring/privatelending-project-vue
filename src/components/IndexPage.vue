@@ -18,12 +18,13 @@
     <!-- 主要区域容器包括导航栏 -->
       <div class="navigation-bar">
       <!-- 导航栏 -->
-        <el-tabs :tab-position="tabPosition" class="category-tabs" v-model="default_tab">
+        <el-tabs :tab-position="tabPosition"  v-model="default_tab" class="category-tabs">
           <el-tab-pane v-for="(categoryName, categoryIndex) in categoryList"
             :key="categoryIndex"
             :label="categoryName"
             :name="categoryName"
             >
+            <span slot="label" class="tabs-font">{{categoryName}}</span>
             <div class="controversy-focus-link-group">
               <div class="controversy-focus-link-box"
                 v-for="(controversyFocusName, controversyFocusId) in controversyFocusList[categoryIndex]"
@@ -152,7 +153,7 @@ export default {
 <style>
   #index-page {
     position: absolute;
-    font-size:1vw;
+    font-size:1vh;
     margin: 0;
     background: gray;
     height: 100vh;
@@ -200,7 +201,7 @@ export default {
     align-items: center;        /* flex子项在flex容器的当前行的侧轴（纵轴）方向上的对齐方式 */
     justify-content: center;    /* 用于设置或检索弹性盒子元素在主轴（横轴）方向上的对齐方式 */
     color: #FFFFFF;
-    font-size: 3.5em;
+    font-size: 5em;
   }
   .title-img {
     /* align-items: center; */
@@ -218,6 +219,7 @@ export default {
     border: 0;
   }
   .search-input-with-select {
+    font-size: 1.6em;
     border: 0;
   }
   .el-button {
@@ -227,12 +229,15 @@ export default {
     height: 90%;
     width: 60%;
     display: flex;
-    align-items: center;        /* flex子项在flex容器的当前行的侧轴（纵轴）方向上的对齐方式 */
-    justify-content: center;    /* 用于设置或检索弹性盒子元素在主轴（横轴）方向上的对齐方式 */
+    justify-content: left;    /* 用于设置或检索弹性盒子元素在主轴（横轴）方向上的对齐方式 */
   }
   .category-tabs {
     display: flex;
     justify-content: center;    /* 用于设置或检索弹性盒子元素在主轴（横轴）方向上的对齐方式 */
+  }
+  .tabs-font{
+    line-height: 2em;
+    font-size: 1.5em;
   }
   .controversy-focus-link-group {
     width: 100%;
@@ -241,7 +246,7 @@ export default {
     flex-direction: row;
     flex-wrap: wrap;
     overflow: auto;
-    /* background: red; */
+    font-size: 1.8em
   }
   .el-link {
     font-size: 1em;

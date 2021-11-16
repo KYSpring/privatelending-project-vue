@@ -219,14 +219,13 @@ export default {
     border: 0;
   }
   .search-input-with-select {
-    font-size: 1.6em;
+    font-size: 2vh;
     border: 0;
   }
   .el-button {
     width: 6vw;
   }
   .navigation-bar {
-    height: 90%;
     width: 60%;
     display: flex;
     justify-content: left;    /* 用于设置或检索弹性盒子元素在主轴（横轴）方向上的对齐方式 */
@@ -236,8 +235,7 @@ export default {
     justify-content: center;    /* 用于设置或检索弹性盒子元素在主轴（横轴）方向上的对齐方式 */
   }
   .tabs-font{
-    line-height: 2em;
-    font-size: 1.5em;
+    font-size: 2vh;
   }
   .controversy-focus-link-group {
     width: 100%;
@@ -246,7 +244,7 @@ export default {
     flex-direction: row;
     flex-wrap: wrap;
     overflow: auto;
-    font-size: 1.8em
+    font-size: 2.2vh;
   }
   .el-link {
     font-size: 1em;
@@ -254,7 +252,8 @@ export default {
   .controversy-focus-link-box {
     margin: 0.8em 0.5em;
   }
-  .support-box {
+.support-box {
+    margin-top:2vh;
     font-family: Fantasy;
     font-weight: 400;
     font-size: 0.6em;
@@ -268,6 +267,8 @@ export default {
     color: #999999;
   }
   .tip-box {
+    margin-top:0.6vh;
+    margin-bottom:2vh;
     font-family: Fantasy;
     font-weight: 400;
     font-size: 0.6em;

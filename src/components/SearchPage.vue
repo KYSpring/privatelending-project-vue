@@ -10,10 +10,10 @@
             <el-option label="裁判观点" value="guandian"></el-option>
             <el-option label="裁判依据" value="yiju"></el-option>
           </el-select>
-          <el-button slot="append" type="primary" sytle="width: 100vw;" icon="el-icon-search" v-on:click="submitQuery()"></el-button>
+          <el-button slot="append" type="primary" icon="el-icon-search" v-on:click="submitQuery()"></el-button>
         </el-input>
       </div>
-      <el-button v-else slot="reference" id='circlesearch' type="primary" sytle="width: 3vw;" icon="el-icon-search" @click="seabarVisible = true"></el-button>
+      <el-button v-else slot="reference" id="circlesearch" type="primary" sytle="width: 3rem;" icon="el-icon-search" @click="seabarVisible = true"></el-button>
       <el-dialog
         :visible.sync="seabarVisible"
         width="90%" :modal="false">
@@ -22,7 +22,7 @@
               <el-option label="裁判观点" value="guandian"></el-option>
               <el-option label="裁判依据" value="yiju"></el-option>
             </el-select>
-            <el-button slot="append" type="primary" sytle="width: 3em;" icon="el-icon-search" @click="submitQuery()"></el-button>
+            <el-button slot="append" type="primary" sytle="width: 3rem;" icon="el-icon-search" @click="submitQuery()"></el-button>
         </el-input>
       </el-dialog>
     </div>
@@ -32,21 +32,21 @@
         <div id="viewContent" :style="{width: widthData}">
           <el-col :span="24" >
             <el-row type="flex" justify="space-between">
-              <el-col :span="21" style="margin:1em 2em">
+              <el-col :span="21" style="margin:0.5rem 2rem">
                 <div id="content-icon">
                   <i class="el-icon-notebook-2"></i>
-                  <span float='left' style="margin-right:2em;font-size:2.2vh;">裁判规则/观点列表</span>
-                  <el-select float='left' v-model="searchClass" @change="handleCommand" style="width:20vh;" placeholder="争议类型选择">
+                  <span float='left' style="margin-right:2rem;font-size:1rem;">裁判规则/观点列表</span>
+                  <el-select float='left' v-model="searchClass" @change="handleCommand" style="width:10rem;" placeholder="争议类型选择">
                     <el-option
                       :label="item" :value="item" v-for="(item, classID) in classList" :key="classID">
-                      <span style="font-size:2vh;">{{item}}</span>
+                      <span style="font-size:1rem;">{{item}}</span>
                     </el-option>
                   </el-select>
-                  <el-select float='left' v-model="selectIssue" @change="handleIssue" style="width:20vh" placeholder="争议焦点选择">
+                  <el-select float='left' v-model="selectIssue" @change="handleIssue" style="width:10rem;" placeholder="争议焦点选择">
                     <el-option
                       :label="issue" :value="issue" v-for="(issue,issueId) in issueListItems" :key="issueId">
                     </el-option>
-                    <span style="font-size:2vh;">{{issue}}</span>
+                    <span style="font-size:0.6rem;">{{issue}}</span>
                   </el-select>
                 </div>
               </el-col>
@@ -61,40 +61,40 @@
             </el-row>
           </el-col>
           <el-col :span="24">
-          <div style="margin:0 2em" v-loading="loading" >
-            <el-card style = "margin-top:1em" v-for="(item,index) in searchRes[0]" :key="index" shadow="hover" id="listcard">
-              <span style="font-size:2vh;font-weight:bold;margin-right:0.5em">观点/规则 {{index.replace(/[^\d]/g,' ')}}</span>
-              <el-tag type="primary"><span style="font-size:1.8vh;">{{item["争议一级"]}}</span></el-tag>
-              <el-tag type="success"><span style="font-size:1.8vh;">{{item["争议二级"]}}</span></el-tag>
-              <el-tag type="warning"><span style="font-size:1.8vh;">{{item["争议焦点"]}}</span></el-tag>
+          <div style="margin:0 2rem" v-loading="loading" >
+            <el-card style = "margin-top:1rem" v-for="(item,index) in searchRes[0]" :key="index" shadow="hover" id="listcard">
+              <span style="font-size:1.1rem;font-weight:bold;margin-right:0.5rem">观点/规则 {{index.replace(/[^\d]/g,' ')}}</span>
+              <el-tag type="primary"><span style="font-size:0.8rem;">{{item["争议一级"]}}</span></el-tag>
+              <el-tag type="success"><span style="font-size:0.8rem;">{{item["争议二级"]}}</span></el-tag>
+              <el-tag type="warning"><span style="font-size:0.8rem;">{{item["争议焦点"]}}</span></el-tag>
               <el-collapse v-model="activeNames[index]">
               <el-collapse-item name="1">
                 <template slot="title">
-                  <span style="font-size:1.8vh;font-weight:bold"><i class="el-icon-success" style="margin-right:0.5em"></i>裁判观点</span>
+                  <span style="font-size:0.9rem;font-weight:bold"><i class="el-icon-success" style="margin-right:0.5em"></i>裁判观点</span>
                 </template>
-                <div style="font-size:1.8vh;" v-if = "!item['裁判观点']">暂无内容</div>
-                <div v-else style="font-size:1.8vh;">{{item['裁判观点']}}</div>
+                <div style="font-size:0.85rem;" v-if = "!item['裁判观点']">暂无内容</div>
+                <div v-else style="font-size:0.85rem;">{{item['裁判观点']}}</div>
               </el-collapse-item>
               <el-collapse-item name="2">
                 <template slot="title">
-                  <span style="font-size:1.8vh;font-weight:bold"><i class="el-icon-success" style="margin-right:0.5em"></i>裁判依据</span>
+                  <span style="font-size:0.9rem;font-weight:bold"><i class="el-icon-success" style="margin-right:0.5em"></i>裁判依据</span>
                 </template>
-                <div style="font-size:1.8vh;" v-if = "!item['裁判依据']">暂无内容</div>
-                <div style="font-size:1.8vh;" v-else>{{item['裁判依据']}}</div>
+                <div style="font-size:0.85rem;" v-if = "!item['裁判依据']">暂无内容</div>
+                <div style="font-size:0.85rem;" v-else>{{item['裁判依据']}}</div>
               </el-collapse-item>
               <el-collapse-item name="3">
                 <template slot="title">
-                  <span style="font-size:1.8vh;font-weight:bold"><i class="el-icon-success" style="margin-right:0.5em"></i>法官说理</span>
+                  <span style="font-size:0.9rem;font-weight:bold"><i class="el-icon-success" style="margin-right:0.5em"></i>法官说理</span>
                 </template>
-                <div style="font-size:1.8vh;" v-if = "!item['说理']">暂无内容</div>
-                <div style="font-size:1.8vh;" v-else>{{item['说理']}}</div>
+                <div style="font-size:0.85rem;" v-if = "!item['说理']">暂无内容</div>
+                <div style="font-size:0.85rem;" v-else>{{item['说理']}}</div>
               </el-collapse-item>
               <el-collapse-item name="4">
                 <template slot="title">
-                  <span style="font-size:1.8vh;font-weight:bold"><i class="el-icon-success" style="margin-right:0.5em"></i>司法判例</span>
+                  <span style="font-size:0.9rem;font-weight:bold"><i class="el-icon-success" style="margin-right:0.5em"></i>司法判例</span>
                 </template>
-                <div style="font-size:1.8vh;" v-if = "!item['判例']">暂无内容</div>
-                <div style="font-size:1.8vh;" v-else>{{item['判例']}}</div>
+                <div style="font-size:0.85rem;" v-if = "!item['判例']">暂无内容</div>
+                <div style="font-size:0.85rem;" v-else>{{item['判例']}}</div>
               </el-collapse-item>
               </el-collapse>
             </el-card>
@@ -339,6 +339,7 @@ export default {
         that.screenWidth = window.screenWidth
       })()
     }
+    // document.documentElement.style.fontSize = 1 + 'vw'// 设置根节点大小，也即1rem大小
   }
 }
 </script>
@@ -350,10 +351,10 @@ export default {
     color: #409EFF;
   }
   .input-with-select {
-    font-size: 1.8vh;
+    font-size: 1rem;
   }
   .input-with-select .el-input-group__prepend {
-    font-size: 1.8vh;
+    font-size: 1rem;
     background-color: #fff;
   }
   .el-button--primary {
@@ -371,13 +372,12 @@ export default {
     width: 40%;
   }
   #title{
-  width: 10em;
-  height: 1.2em;
-  font-size: 3em;
+  width: 30vh;
+  height: 4vh;
+  font-size: 3vh;
   font-family: "Microsoft YaHei",sans-serif;
   font-weight: 400;
   color: #FFFFFF;
-  line-height: 1em;
 }
 #icon{
   width: 2em;
@@ -416,7 +416,7 @@ export default {
 #bkg{
   margin: 0;
   width: 100vw;
-  font-size:1vh;
+  font-size:0.7rem;
   position: relative;
 }
 #content-icon{

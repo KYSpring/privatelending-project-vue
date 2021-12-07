@@ -151,9 +151,24 @@ export default {
 </script>
 
 <style>
+@media screen and (min-width:768px) {
   #index-page {
     position: absolute;
-    font-size:1vh;
+    font-size:1rem;
+    margin: 0;
+    background: gray;
+    height: 100vh;
+    width:768px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;        /* flex子项在flex容器的当前行的侧轴（纵轴）方向上的对齐方式 */
+    justify-content: center;    /* 用于设置或检索弹性盒子元素在主轴（横轴）方向上的对齐方式 */
+    overflow: auto;
+  }
+}
+  #index-page {
+    position: absolute;
+    font-size:1rem;
     margin: 0;
     background: gray;
     height: 100vh;
@@ -163,7 +178,6 @@ export default {
     align-items: center;        /* flex子项在flex容器的当前行的侧轴（纵轴）方向上的对齐方式 */
     justify-content: center;    /* 用于设置或检索弹性盒子元素在主轴（横轴）方向上的对齐方式 */
     overflow: auto;
-    min-width:700x;
   }
   .index-header {
     height: 30%;
@@ -201,7 +215,7 @@ export default {
     align-items: center;        /* flex子项在flex容器的当前行的侧轴（纵轴）方向上的对齐方式 */
     justify-content: center;    /* 用于设置或检索弹性盒子元素在主轴（横轴）方向上的对齐方式 */
     color: #FFFFFF;
-    font-size: 5em;
+    font-size: 3.5rem;
   }
   .title-img {
     /* align-items: center; */
@@ -219,7 +233,7 @@ export default {
     border: 0;
   }
   .search-input-with-select {
-    font-size: 2vh;
+    font-size: 1rem;
     border: 0;
   }
   .el-button {
@@ -235,7 +249,7 @@ export default {
     justify-content: center;    /* 用于设置或检索弹性盒子元素在主轴（横轴）方向上的对齐方式 */
   }
   .tabs-font{
-    font-size: 2vh;
+    font-size: 1rem;
   }
   .controversy-focus-link-group {
     width: 100%;
@@ -244,34 +258,34 @@ export default {
     flex-direction: row;
     flex-wrap: wrap;
     overflow: auto;
-    font-size: 2.2vh;
+    font-size: 1rem;
   }
   .el-link {
-    font-size: 1em;
+    font-size: 1rem;
   }
   .controversy-focus-link-box {
-    margin: 0.8em 0.5em;
+    margin: 1rem 0.8rem;
   }
 .support-box {
-    margin-top:2vh;
+    margin-top:2rem;
     font-family: Fantasy;
     font-weight: 400;
-    font-size: 0.6em;
+    font-size: 0.8rem;
     color: #999999;
   }
   .support-box a {
     text-decoration: none;
     font-family: Fantasy;
     font-weight: 400;
-    font-size: 0.6em;
+    font-size: 0.8rem;
     color: #999999;
   }
   .tip-box {
-    margin-top:0.6vh;
-    margin-bottom:2vh;
+    margin-top:0.6rem;
+    margin-bottom:2rem;
     font-family: Fantasy;
     font-weight: 400;
-    font-size: 0.6em;
+    font-size: 0.8rem;
     color: #999999;;
   }
 </style>

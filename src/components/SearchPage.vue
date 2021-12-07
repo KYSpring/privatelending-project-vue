@@ -94,7 +94,18 @@
                   <span style="font-size:0.9rem;font-weight:bold"><i class="el-icon-success" style="margin-right:0.5em"></i>司法判例</span>
                 </template>
                 <div style="font-size:0.85rem;" v-if = "!item['判例']">暂无内容</div>
-                <div style="font-size:0.85rem;" v-else>{{item['判例']}}</div>
+                <div style="font-size:0.85rem;" v-else>
+                  <el-link v-for="caseKey in Object.keys(caseList = getItemCases(item['判例']))" :key="caseKey"
+                   style="margin-right:1rem"
+                   @click="
+                    handeCaseRequest(
+                      getItemCases(item['判例'])[caseKey].type,
+                      getItemCases(item['判例'])[caseKey].url,
+                      getItemCases(item['判例'])[caseKey].param
+                    )">
+                    {{caseKey}}
+                  </el-link>
+                </div>
               </el-collapse-item>
               </el-collapse>
             </el-card>
@@ -143,6 +154,7 @@
 
 <script>
 import Qs from 'qs'
+import caseDict from '../resource/formattedCaseDict.json'
 export default {
   name: 'Welcome',
   // components: { test },
@@ -170,7 +182,8 @@ export default {
       commentForm: {
         contact: '',
         workplace: ''
-      }
+      },
+      caseDict: caseDict
     }
   },
   computed: {
@@ -193,6 +206,50 @@ export default {
     }
   },
   methods: {
+    // 处理案例访问请求
+    handeCaseRequest (type, url, param) {
+      this.$router.push({
+        path: '/caseDetail',
+        query: { url: 'http://qingfa.fajuhe.com/home/caseDetail', param: 12769303 }
+      })
+      // console.log('caseData', type, url, param)
+      // if (url === '暂无' || url === '') {
+      //   this.$message('暂无数据')
+      // } else if (type === 'outer') {
+      //   window.open(url)
+      // } else {
+      //   this.$router.push({
+      //     path: '/caseDetail',
+      //     query: { url, param }
+      //   })
+      // }
+    },
+    // 案例名称分割与链接生成
+    getItemCases (rawContent) {
+      let caseList = rawContent.split(/[，。；;,\n]/)
+      let tarList = {}
+      caseList.forEach(curKey => {
+        if (curKey) {
+          if (caseDict[curKey]) {
+            tarList[curKey] = caseDict[curKey]
+          } else {
+            curKey = curKey.replaceAll('(', '（')
+            curKey = curKey.replaceAll(')', '）')
+            if (!caseDict[curKey]) {
+              let tarIndex = curKey.lastIndexOf('（')
+              let tarKey = (curKey.slice(tarIndex)).trim()
+              tarList[tarKey] = caseDict[tarKey]
+              if (!caseDict[tarKey]) {
+                console.log('caseList', curKey, 'tarKey', tarKey, caseDict[tarKey])
+              }
+            } else {
+              tarList[curKey] = caseDict[curKey]
+            }
+          }
+        }
+      })
+      return tarList
+    },
     handleCommand (command) {
       if (this.select === 'guandian') {
         this.searchLabel = '裁判观点'

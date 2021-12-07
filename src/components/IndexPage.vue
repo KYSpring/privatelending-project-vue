@@ -160,6 +160,7 @@ export default {
     width:100vw;
     display: flex;
     flex-direction: column;
+    align-content: start;
     align-items: center;        /* flex子项在flex容器的当前行的侧轴（纵轴）方向上的对齐方式 */
     justify-content: center;    /* 用于设置或检索弹性盒子元素在主轴（横轴）方向上的对齐方式 */
     overflow: auto;
@@ -179,6 +180,7 @@ export default {
     height: 62%;
     margin: 0 auto;
     display: flex;
+    align-content: start;
     align-items: center;        /* flex子项在flex容器的当前行的侧轴（纵轴）方向上的对齐方式 */
     justify-content: center;    /* 用于设置或检索弹性盒子元素在主轴（横轴）方向上的对齐方式 */
     overflow: auto;
@@ -225,6 +227,7 @@ export default {
     width: 6vw;
   }
   .navigation-bar {
+    height: 100%;
     width: 60%;
     display: flex;
     justify-content: left;    /* 用于设置或检索弹性盒子元素在主轴（横轴）方向上的对齐方式 */

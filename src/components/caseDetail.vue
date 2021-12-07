@@ -8,6 +8,7 @@
       <el-row style="width:90%"  type="flex" justify="center">
         <!-- 内容展示区 -->
         <div id="viewContent" :style="{width: widthData}">
+            {{showData}}
         </div>
       </el-row>
       <div class="index-footer">
@@ -37,6 +38,9 @@ export default {
     }
   },
   computed: {
+    showData () {
+      return this.caseData
+    },
     widthData () {
       if (this.screenWidth > 750) {
         return '80%'
@@ -55,17 +59,16 @@ export default {
       console.log(query)
       const url = '/api' + query.url.split('.com')[1]
       console.log('url', url)
-      const caseId = query.param
-      this.$axios.post(url, {'case_id': caseId}).then((response) => {
+      let data = new FormData()
+      data.append('case_id', query.param)
+      this.$axios.post(url, data).then((response) => {
         console.log('response.data', response.data)
-        this.$set(this.caseData, 0, response.data)
+        let msg = response.data.msg
+        let statusCode = response.data.code
+        this.caseData = response.data.info
         this.loading = false
-        if (!Object.keys(this.searchRes[0]).length) {
-          this.$message.error('访问数据失败')
-        } else {
-          Object.keys(this.searchRes[0]).forEach((key) => {
-            this.$set(this.activeNames, key, ['1', '2'])
-          })
+        if (statusCode) {
+          this.$message.error('访问数据失败:', msg)
         }
       }).catch(err => {
         console.log(err)

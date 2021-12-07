@@ -77,7 +77,8 @@ export default {
     fetchData (query) {
       this.loading = true
       console.log(query)
-      const url = '/api' + query.url.split('.com')[1]
+      // const url = '/api' + query.url.split('.com')[1] // 测试环境
+      const url = query.url // 正式环境
       console.log('url', url)
       let data = new FormData()
       data.append('case_id', query.param)

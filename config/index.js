@@ -11,12 +11,13 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/api': {
-        target: 'http://175.27.139.196:80',
-        // ws: true,
+      '/api/': {
+        target: 'http://qingfa.fajuhe.com',
+        secure: false, // false为http访问，true为https访问
         changeOrigin: true,
         pathRewrite: {
-          '^/api': '/api' // 思路是如果是开发环境，就给所有要代理的接口统一加上前缀，然后代理请求时再统一通过rewrite去掉
+          '^/api': '/' // 思路是如果是开发环境，就给所有要代理的接口统一加上前缀，然后代理请求时再统一通过rewrite去掉
+          // http://qingfa.fajuhe.com/home/caseDetail == /api/home/caseDetail 
         }
       }
     },

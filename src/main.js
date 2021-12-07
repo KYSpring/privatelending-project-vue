@@ -12,7 +12,6 @@ import 'echarts-wordcloud'
 Vue.use(ElementUI)
 Vue.config.productionTip = false
 Vue.prototype.$axios = axios // 全局注册使用axios
-// Vue.prototype.$axios.default.baseURL = process.env.BASE_API
 Vue.prototype.$echarts = echarts
 
 /* eslint-disable no-new */

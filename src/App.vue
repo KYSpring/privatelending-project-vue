@@ -12,7 +12,7 @@ export default {
 
 <style>
 html {
-  font-size: 1vw;
+  font-size: 1vh;
 }
 #app {
   height: 100%;

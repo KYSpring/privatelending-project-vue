@@ -5,12 +5,34 @@
       <div id='title' style="cursor:pointer" v-on:click="backToIndex()">民间借贷裁判规则库</div>
     </div>
     <div id="welcome">
-      <el-row style="width:90%"  type="flex" justify="center">
+      <el-row  type="flex" justify="center" >
         <!-- 内容展示区 -->
-        <div id="viewContent" :style="{width: widthData}">
-            {{showData}}
+        <div v-if="Object.keys(caseData).length" id="viewContent" :style="{width: widthData}">
+            <el-col :span="24">
+              <el-row :span="24" style="text-align:center;margin: 1rem 0;">
+                <span class="caseTitle">{{caseData.attrs.title}}</span>
+              </el-row>
+              <el-row :span="24" class="caseSub" type="flex" justify="space-around" style="text-align:center">
+                <el-col :span="7">{{caseData.attrs.case_no}}</el-col>
+                <el-col :span="3">{{caseData.attrs.case_type}}</el-col>
+                <el-col :span="6">{{caseData.attrs.court_name}}</el-col>
+                <el-col :span="3">{{caseData.attrs.judgement_date}}</el-col>
+              </el-row>
+
+              <el-row justify="start" v-for="(seg,index) in caseData.segments" :key="index" style="margin: 1rem 2rem">
+                <el-row class="casetxtLabel">
+                  {{seg.label}}
+                </el-row>
+                <el-row :span="24" class="casetxt" v-for="(txtLine,id) in seg.txt" :key="id">{{txtLine}}</el-row>
+              </el-row>
+            </el-col>
+        </div>
+        <div v-else v-loading="loading"
+             element-loading-text="数据加载中"
+              id="viewContent" :style="{width: widthData}">
         </div>
       </el-row>
+    </div>
       <div class="index-footer">
       <!-- 底栏容器 -->
         <div class="support-box">
@@ -23,7 +45,6 @@
           <span calss="new-version-tip">请使用最新版本Chrome浏览器</span>
         </div>
       </div>
-    </div>
   </div>
 </template>
 
@@ -34,16 +55,14 @@ export default {
     return {
       screenWidth: document.body.clientWidth,
       param: {},
-      caseData: {}
+      caseData: {},
+      loading: false
     }
   },
   computed: {
-    showData () {
-      return this.caseData
-    },
     widthData () {
       if (this.screenWidth > 750) {
-        return '80%'
+        return '70%'
       } else {
         return '100%'
       }
@@ -56,17 +75,18 @@ export default {
       })
     },
     fetchData (query) {
+      this.loading = true
       console.log(query)
       const url = '/api' + query.url.split('.com')[1]
       console.log('url', url)
       let data = new FormData()
       data.append('case_id', query.param)
       this.$axios.post(url, data).then((response) => {
-        console.log('response.data', response.data)
         let msg = response.data.msg
         let statusCode = response.data.code
         this.caseData = response.data.info
         this.loading = false
+        console.log('caseData', this.caseData)
         if (statusCode) {
           this.$message.error('访问数据失败:', msg)
         }
@@ -82,30 +102,43 @@ export default {
 </script>
 
 <style scoped>
-  .el-select { width: 8em; border: 0;}
-
-  .input-with-select {
-    font-size: 1.8vh;
-  }
+.casetxt {
+  font-size: 2rem;
+  margin:0rem 4rem;
+  line-height: 4rem;
+}
+.casetxtLabel {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin:2rem 3rem
+}
+.caseTitle {
+  font-size:3rem;
+  font-weight: bold;
+}
+.caseSub{
+  font-size:2rem;
+  margin: 1rem 0
+}
   #title{
-  width: 10em;
-  height: 1.2em;
-  font-size: 3em;
+  width: 35rem;
+  height: 1.2rem;
+  font-size: 3rem;
   font-family: "Microsoft YaHei",sans-serif;
   font-weight: 400;
   color: #FFFFFF;
-  line-height: 1em;
+  line-height: 1rem;
 }
 #icon{
-  width: 2em;
-  height: 2.5em;
-  margin-right: 1em;
+  width: 2rem;
+  height: 2.5rem;
+  margin-right: 1rem;
 }
 #top-bar {
   z-index: 100;
   position: fixed;
   width: 100%;
-  height: 8vh;
+  height: 8rem;
   background: #1F589B;
   border: 1px solid #E6E6E6;
   display: flex;
@@ -116,24 +149,26 @@ export default {
   right: 0;
 }
 #viewContent{
+    position: relative;
+    min-height: 78vh;
     overflow: auto;
     background: #FFFFFF;
-    float: left;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
   }
 #welcome {
-  position: absolute;
+  position: relative;
   width: 100%;
   background: #F0F2F5;
-  margin:8vh 0 0 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  margin-top:8vh;
   justify-content: center;
 }
 #bkg{
   margin: 0;
   width: 100vw;
-  font-size:1vh;
+  font-size:1rem;
   position: relative;
 }
 .index-footer {
@@ -150,14 +185,14 @@ export default {
     margin-top:2vh;
     font-family: Fantasy;
     font-weight: 400;
-    font-size: 0.6em;
+    font-size: 0.6rem;
     color: #999999;
   }
   .support-box a {
     text-decoration: none;
     font-family: Fantasy;
     font-weight: 400;
-    font-size: 0.6em;
+    font-size: 0.6rem;
     color: #999999;
   }
   .tip-box {
@@ -165,7 +200,7 @@ export default {
     margin-bottom:2vh;
     font-family: Fantasy;
     font-weight: 400;
-    font-size: 0.6em;
+    font-size: 0.6rem;
     color: #999999;;
   }
 </style>

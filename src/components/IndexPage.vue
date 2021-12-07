@@ -5,7 +5,7 @@
       <div class="title">民间借贷裁判规则库</div>
       <div class="search-bar">
         <el-input placeholder="请输入搜索内容" v-model="searchContent" class="search-input-with-select">
-          <el-select id="selectbar" v-model="searchSelect" slot="prepend" :placeholder="searchLabel">
+          <el-select v-model="searchSelect" slot="prepend" :placeholder="searchLabel">
             <el-option label="争议焦点" value="jiaodian"></el-option>
             <el-option label="裁判观点" value="guandian"></el-option>
             <el-option label="裁判依据" value="yiju"></el-option>
@@ -29,7 +29,7 @@
               <div class="controversy-focus-link-box"
                 v-for="(controversyFocusName, controversyFocusId) in controversyFocusList[categoryIndex]"
                 :key="controversyFocusId">
-                <el-link type="info" v-on:click="searchControversyFocus(categoryName, controversyFocusName)">{{controversyFocusName}}</el-link>
+                <el-link type="info" style="font-size:2rem" v-on:click="searchControversyFocus(categoryName, controversyFocusName)">{{controversyFocusName}}</el-link>
                 <el-divider direction="vertical"></el-divider>
               </div>
             </div>
@@ -151,21 +151,6 @@ export default {
 </script>
 
 <style>
-@media screen and (min-width:768px) {
-  #index-page {
-    position: absolute;
-    font-size:1rem;
-    margin: 0;
-    background: gray;
-    height: 100vh;
-    width:768px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;        /* flex子项在flex容器的当前行的侧轴（纵轴）方向上的对齐方式 */
-    justify-content: center;    /* 用于设置或检索弹性盒子元素在主轴（横轴）方向上的对齐方式 */
-    overflow: auto;
-  }
-}
   #index-page {
     position: absolute;
     font-size:1rem;
@@ -215,7 +200,7 @@ export default {
     align-items: center;        /* flex子项在flex容器的当前行的侧轴（纵轴）方向上的对齐方式 */
     justify-content: center;    /* 用于设置或检索弹性盒子元素在主轴（横轴）方向上的对齐方式 */
     color: #FFFFFF;
-    font-size: 3.5rem;
+    font-size: 5rem;
   }
   .title-img {
     /* align-items: center; */
@@ -233,7 +218,7 @@ export default {
     border: 0;
   }
   .search-input-with-select {
-    font-size: 1rem;
+    font-size: 2rem;
     border: 0;
   }
   .el-button {
@@ -249,7 +234,7 @@ export default {
     justify-content: center;    /* 用于设置或检索弹性盒子元素在主轴（横轴）方向上的对齐方式 */
   }
   .tabs-font{
-    font-size: 1rem;
+    font-size: 2rem;
   }
   .controversy-focus-link-group {
     width: 100%;
@@ -258,7 +243,6 @@ export default {
     flex-direction: row;
     flex-wrap: wrap;
     overflow: auto;
-    font-size: 1rem;
   }
   .el-link {
     font-size: 1rem;

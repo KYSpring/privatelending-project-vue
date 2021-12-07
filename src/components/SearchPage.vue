@@ -5,7 +5,7 @@
       <div id='title' style="cursor:pointer" v-on:click="backToIndex()">民间借贷裁判规则库</div>
       <div v-if="screenWidth > 750" id='search-bar'>
         <el-input placeholder="请输入搜索内容" v-model="searchContent" class="input-with-select">
-          <el-select id="selectbar" v-model="select" slot="prepend" :placeholder="searchLabel">
+          <el-select v-model="select" slot="prepend" :placeholder="searchLabel">
             <el-option label="争议焦点" value="jiaodian"></el-option>
             <el-option label="裁判观点" value="guandian"></el-option>
             <el-option label="裁判依据" value="yiju"></el-option>
@@ -13,12 +13,12 @@
           <el-button slot="append" type="primary" icon="el-icon-search" v-on:click="submitQuery()"></el-button>
         </el-input>
       </div>
-      <el-button v-else slot="reference" id="circlesearch" type="primary" sytle="width: 3rem;" icon="el-icon-search" @click="seabarVisible = true"></el-button>
+      <el-button v-else slot="reference" id="circlesearch" type="primary" sytle="width: 10rem;" icon="el-icon-search" @click="seabarVisible = true"></el-button>
       <el-dialog
         :visible.sync="seabarVisible"
         width="90%" :modal="false">
         <el-input placeholder="请输入搜索内容" v-model="searchContent" class="input-with-select">
-            <el-select id="selectbar" v-model="select" slot="prepend" :placeholder="searchLabel">
+            <el-select v-model="select" slot="prepend" :placeholder="searchLabel">
               <el-option label="裁判观点" value="guandian"></el-option>
               <el-option label="裁判依据" value="yiju"></el-option>
             </el-select>
@@ -35,14 +35,14 @@
               <el-col :span="21" style="margin:0.5rem 2rem">
                 <div id="content-icon">
                   <i class="el-icon-notebook-2"></i>
-                  <span float='left' style="margin-right:2rem;font-size:1rem;">裁判规则/观点列表</span>
-                  <el-select float='left' v-model="searchClass" @change="handleCommand" style="width:10rem;" placeholder="争议类型选择">
+                  <span float='left' style="margin-right:2rem;font-size:2.3rem;">裁判规则/观点列表</span>
+                  <el-select float='left' class="labelselect" v-model="searchClass" @change="handleCommand" style="width:20rem;" placeholder="争议类型选择">
                     <el-option
                       :label="item" :value="item" v-for="(item, classID) in classList" :key="classID">
                       <span style="font-size:1rem;">{{item}}</span>
                     </el-option>
                   </el-select>
-                  <el-select float='left' v-model="selectIssue" @change="handleIssue" style="width:10rem;" placeholder="争议焦点选择">
+                  <el-select float='left' class="labelselect" v-model="selectIssue" @change="handleIssue" style="width:20rem;" placeholder="争议焦点选择">
                     <el-option
                       :label="issue" :value="issue" v-for="(issue,issueId) in issueListItems" :key="issueId">
                     </el-option>
@@ -63,40 +63,40 @@
           <el-col :span="24">
           <div style="margin:0 2rem" v-loading="loading" >
             <el-card style = "margin-top:1rem" v-for="(item,index) in searchRes[0]" :key="index" shadow="hover" id="listcard">
-              <span style="font-size:1.1rem;font-weight:bold;margin-right:0.5rem">观点/规则 {{index.replace(/[^\d]/g,' ')}}</span>
-              <el-tag type="primary"><span style="font-size:0.8rem;">{{item["争议一级"]}}</span></el-tag>
-              <el-tag type="success"><span style="font-size:0.8rem;">{{item["争议二级"]}}</span></el-tag>
-              <el-tag type="warning"><span style="font-size:0.8rem;">{{item["争议焦点"]}}</span></el-tag>
+              <span style="font-size:2rem;font-weight:bold;margin-right:0.5rem">观点/规则 {{index.replace(/[^\d]/g,' ')}}</span>
+              <el-tag type="primary"><span style="font-size:1rem;">{{item["争议一级"]}}</span></el-tag>
+              <el-tag type="success"><span style="font-size:1rem;">{{item["争议二级"]}}</span></el-tag>
+              <el-tag type="warning"><span style="font-size:1rem;">{{item["争议焦点"]}}</span></el-tag>
               <el-collapse v-model="activeNames[index]">
               <el-collapse-item name="1">
                 <template slot="title">
-                  <span style="font-size:0.9rem;font-weight:bold"><i class="el-icon-success" style="margin-right:0.5em"></i>裁判观点</span>
+                  <span style="font-size:2rem;font-weight:bold"><i class="el-icon-success" style="margin-right:0.5em"></i>裁判观点</span>
                 </template>
-                <div style="font-size:0.85rem;" v-if = "!item['裁判观点']">暂无内容</div>
-                <div v-else style="font-size:0.85rem;">{{item['裁判观点']}}</div>
+                <div style="font-size:1.8rem;" v-if = "!item['裁判观点']">暂无内容</div>
+                <div v-else style="font-size:1.8rem;">{{item['裁判观点']}}</div>
               </el-collapse-item>
               <el-collapse-item name="2">
                 <template slot="title">
-                  <span style="font-size:0.9rem;font-weight:bold"><i class="el-icon-success" style="margin-right:0.5em"></i>裁判依据</span>
+                  <span style="font-size:2rem;font-weight:bold"><i class="el-icon-success" style="margin-right:0.5em"></i>裁判依据</span>
                 </template>
-                <div style="font-size:0.85rem;" v-if = "!item['裁判依据']">暂无内容</div>
-                <div style="font-size:0.85rem;" v-else>{{item['裁判依据']}}</div>
+                <div style="font-size:1.8rem;" v-if = "!item['裁判依据']">暂无内容</div>
+                <div style="font-size:1.8rem;" v-else>{{item['裁判依据']}}</div>
               </el-collapse-item>
               <el-collapse-item name="3">
                 <template slot="title">
-                  <span style="font-size:0.9rem;font-weight:bold"><i class="el-icon-success" style="margin-right:0.5em"></i>法官说理</span>
+                  <span style="font-size:2rem;font-weight:bold"><i class="el-icon-success" style="margin-right:0.5em"></i>法官说理</span>
                 </template>
-                <div style="font-size:0.85rem;" v-if = "!item['说理']">暂无内容</div>
-                <div style="font-size:0.85rem;" v-else>{{item['说理']}}</div>
+                <div style="font-size:1.8rem;" v-if = "!item['说理']">暂无内容</div>
+                <div style="font-size:1.8rem;" v-else>{{item['说理']}}</div>
               </el-collapse-item>
               <el-collapse-item name="4">
                 <template slot="title">
-                  <span style="font-size:0.9rem;font-weight:bold"><i class="el-icon-success" style="margin-right:0.5em"></i>司法判例</span>
+                  <span style="font-size:2rem;font-weight:bold"><i class="el-icon-success" style="margin-right:0.5em"></i>司法判例</span>
                 </template>
-                <div style="font-size:0.85rem;" v-if = "!item['判例']">暂无内容</div>
-                <div style="font-size:0.85rem;" v-else>
+                <div style="font-size:1.8rem;" v-if = "!item['判例']">暂无内容</div>
+                <div v-else>
                   <el-link v-for="caseKey in Object.keys(caseList = getItemCases(item['判例']))" :key="caseKey"
-                   style="margin-right:1rem"
+                   style="margin-right:1rem;font-size:1.8rem"
                    @click="
                     handeCaseRequest(
                       getItemCases(item['判例'])[caseKey].type,
@@ -208,21 +208,21 @@ export default {
   methods: {
     // 处理案例访问请求
     handeCaseRequest (type, url, param) {
-      this.$router.push({
-        path: '/caseDetail',
-        query: { url: 'http://qingfa.fajuhe.com/home/caseDetail', param: 12769303 }
-      })
-      // console.log('caseData', type, url, param)
-      // if (url === '暂无' || url === '') {
-      //   this.$message('暂无数据')
-      // } else if (type === 'outer') {
-      //   window.open(url)
-      // } else {
-      //   this.$router.push({
-      //     path: '/caseDetail',
-      //     query: { url, param }
-      //   })
-      // }
+      // this.$router.push({
+      //   path: '/caseDetail',
+      //   query: { url: 'http://qingfa.fajuhe.com/home/caseDetail', param: 12769303 }
+      // })
+      console.log('caseData', type, url, param)
+      if (url === '暂无' || url === '') {
+        this.$message('暂无数据')
+      } else if (type === 'outer') {
+        window.open(url)
+      } else {
+        this.$router.push({
+          path: '/caseDetail',
+          query: { url, param }
+        })
+      }
     },
     // 案例名称分割与链接生成
     getItemCases (rawContent) {
@@ -402,17 +402,17 @@ export default {
 </script>
 
 <style scoped>
-  .el-select { width: 8em; border: 0;}
+.labelselect {
+  font-size: 1rem;
+}
+.input-with-select {
+    font-size: 1rem;
+    border: 0;
+  }
+  .el-select { width: 8vw; border: 0;}
   .el-dropdown-link {
     cursor: pointer;
     color: #409EFF;
-  }
-  .input-with-select {
-    font-size: 1rem;
-  }
-  .input-with-select .el-input-group__prepend {
-    font-size: 1rem;
-    background-color: #fff;
   }
   .el-button--primary {
     background: #1F589B;
@@ -429,9 +429,9 @@ export default {
     width: 40%;
   }
   #title{
-  width: 30vh;
-  height: 4vh;
-  font-size: 3vh;
+  width: 30rem;
+  height: 4rem;
+  font-size: 3rem;
   font-family: "Microsoft YaHei",sans-serif;
   font-weight: 400;
   color: #FFFFFF;
@@ -479,7 +479,7 @@ export default {
 #content-icon{
     top: 2em;
     left: 2em;
-    font-size: 1.6em;
+    font-size: 1.6rem;
     font-family:"Microsoft YaHei",sans-serif;
 }
 #reply{
@@ -487,7 +487,7 @@ export default {
   right: 2em;
 }
 #replyClick{
-  font-size: 1.2vh;
+  font-size: 1.2rem;
   color: #1F589B;
   font-family:"Microsoft YaHei",sans-serif;
   width: 5em;
@@ -509,14 +509,14 @@ export default {
     margin-top:2vh;
     font-family: Fantasy;
     font-weight: 400;
-    font-size: 0.6em;
+    font-size: 0.6rem;
     color: #999999;
   }
   .support-box a {
     text-decoration: none;
     font-family: Fantasy;
     font-weight: 400;
-    font-size: 0.6em;
+    font-size: 0.6rem;
     color: #999999;
   }
   .tip-box {
@@ -524,7 +524,7 @@ export default {
     margin-bottom:2vh;
     font-family: Fantasy;
     font-weight: 400;
-    font-size: 0.6em;
+    font-size: 0.6rem;
     color: #999999;;
   }
 </style>

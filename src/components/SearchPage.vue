@@ -96,6 +96,8 @@
                 <div style="font-size:1.8rem;" v-if = "!item['判例']">暂无内容</div>
                 <div v-else>
                   <el-link v-for="caseKey in Object.keys(caseList = getItemCases(item['判例']))" :key="caseKey"
+                   type="primary"
+                   :disabled="(!getItemCases(item['判例'])[caseKey] || getItemCases(item['判例'])[caseKey].url === '暂无' || getItemCases(item['判例'])[caseKey].url === '')?true:false"
                    style="margin-right:1rem;font-size:1.8rem"
                    @click="
                     handeCaseRequest(
@@ -103,7 +105,8 @@
                       getItemCases(item['判例'])[caseKey].url,
                       getItemCases(item['判例'])[caseKey].param
                     )">
-                    {{caseKey}}
+                    <u v-if="(!getItemCases(item['判例'])[caseKey] || getItemCases(item['判例'])[caseKey].url === '暂无' || getItemCases(item['判例'])[caseKey].url === '')">{{caseKey}}</u>
+                    <span v-else>{{caseKey}}</span>
                   </el-link>
                 </div>
               </el-collapse-item>

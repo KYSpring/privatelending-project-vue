@@ -64,9 +64,9 @@
           <div style="margin:0 2rem" v-loading="loading" >
             <el-card style = "margin-top:1rem" v-for="(item,index) in searchRes[0]" :key="index" shadow="hover" id="listcard">
               <span style="font-size:2rem;font-weight:bold;margin-right:0.5rem">观点/规则 {{index.replace(/[^\d]/g,' ')}}</span>
-              <el-tag type="primary"><span style="font-size:1rem;">{{item["争议一级"]}}</span></el-tag>
-              <el-tag type="success"><span style="font-size:1rem;">{{item["争议二级"]}}</span></el-tag>
-              <el-tag type="warning"><span style="font-size:1rem;">{{item["争议焦点"]}}</span></el-tag>
+              <el-tag type="primary"><span style="font-size: 1.5rem;font-weight:700;">{{item["争议一级"]}}</span></el-tag>
+              <el-tag type="success"><span style="font-size: 1.5rem;font-weight:700;">{{item["争议二级"]}}</span></el-tag>
+              <el-tag type="warning"><span style="font-size: 1.5rem;font-weight:700;">{{item["争议焦点"]}}</span></el-tag>
               <el-collapse v-model="activeNames[index]">
               <el-collapse-item name="1">
                 <template slot="title">
@@ -236,8 +236,12 @@ export default {
           if (caseDict[curKey]) {
             tarList[curKey] = caseDict[curKey]
           } else {
-            curKey = curKey.replaceAll('(', '（')
-            curKey = curKey.replaceAll(')', '）')
+            // ie不兼容replaceall
+            // curKey = curKey.replaceAll('(', '（')
+            // curKey = curKey.replaceAll(')', '）')
+            curKey = curKey.replace(/\(/g, '（')
+            curKey = curKey.replace(/\)/g, '）')
+
             if (!caseDict[curKey]) {
               let tarIndex = curKey.lastIndexOf('（')
               let tarKey = (curKey.slice(tarIndex)).trim()
@@ -405,11 +409,11 @@ export default {
 </script>
 
 <style scoped>
-.labelselect {
-  font-size: 1rem;
-}
+/* .labelselect {
+  font-size: 1.6rem;
+} */
 .input-with-select {
-    font-size: 1rem;
+    /* font-size: 1.6rem; */
     border: 0;
   }
   .el-select { width: 8vw; border: 0;}
@@ -435,7 +439,6 @@ export default {
   width: 30rem;
   height: 4rem;
   font-size: 3rem;
-  font-family: "Microsoft YaHei",sans-serif;
   font-weight: 400;
   color: #FFFFFF;
 }
@@ -483,16 +486,15 @@ export default {
     top: 2em;
     left: 2em;
     font-size: 1.6rem;
-    font-family:"Microsoft YaHei",sans-serif;
 }
 #reply{
   top: 1em;
   right: 2em;
+  font-size: 1.4rem;
 }
 #replyClick{
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   color: #1F589B;
-  font-family:"Microsoft YaHei",sans-serif;
   width: 5em;
 }
 #listcard{
@@ -510,24 +512,21 @@ export default {
   }
 .support-box {
     margin-top:2vh;
-    font-family: Fantasy;
     font-weight: 400;
-    font-size: 0.6rem;
+    font-size: 1.5rem;
     color: #999999;
   }
   .support-box a {
     text-decoration: none;
-    font-family: Fantasy;
     font-weight: 400;
-    font-size: 0.6rem;
+    font-size: 1.5rem;
     color: #999999;
   }
   .tip-box {
     margin-top:0.6vh;
     margin-bottom:2vh;
-    font-family: Fantasy;
     font-weight: 400;
-    font-size: 0.6rem;
+    font-size: 1.5rem;
     color: #999999;;
   }
 </style>

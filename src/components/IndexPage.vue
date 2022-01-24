@@ -255,24 +255,21 @@ export default {
   }
 .support-box {
     margin-top:2rem;
-    font-family: Fantasy;
     font-weight: 400;
-    font-size: 0.8rem;
+    font-size: 1.5rem;
     color: #999999;
   }
   .support-box a {
     text-decoration: none;
-    font-family: Fantasy;
     font-weight: 400;
-    font-size: 0.8rem;
+    font-size: 1.5rem;
     color: #999999;
   }
   .tip-box {
     margin-top:0.6rem;
     margin-bottom:2rem;
-    font-family: Fantasy;
     font-weight: 400;
-    font-size: 0.8rem;
+    font-size: 1.5rem;
     color: #999999;;
   }
 </style>

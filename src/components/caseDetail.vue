@@ -86,10 +86,8 @@ export default {
       }).then((response) => {
         let msg = response.statusText
         let statusCode = response.status
-        console.log('response.data.info', response.data.info)
         this.caseData = response.data.info.info
         this.loading = false
-        console.log(this.caseData)
         if (statusCode !== 200) {
           this.$message.error('访问数据失败:', msg)
         }

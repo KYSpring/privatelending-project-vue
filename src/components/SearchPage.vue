@@ -99,12 +99,7 @@
                    type="primary"
                    :disabled="(!getItemCases(item['判例'])[caseKey] || getItemCases(item['判例'])[caseKey].url === '暂无' || getItemCases(item['判例'])[caseKey].url === '')?true:false"
                    style="margin-right:1rem;font-size:1.8rem"
-                   @click="
-                    handeCaseRequest(
-                      getItemCases(item['判例'])[caseKey].type,
-                      getItemCases(item['判例'])[caseKey].url,
-                      getItemCases(item['判例'])[caseKey].param
-                    )">
+                   @click="handleLocalCaseRequest(caseKey)">
                     <u v-if="(!getItemCases(item['判例'])[caseKey] || getItemCases(item['判例'])[caseKey].url === '暂无' || getItemCases(item['判例'])[caseKey].url === '')">{{caseKey}}</u>
                     <span v-else>{{caseKey}}</span>
                   </el-link>
@@ -210,22 +205,37 @@ export default {
   },
   methods: {
     // 处理案例访问请求
-    handeCaseRequest (type, url, param) {
-      // this.$router.push({
-      //   path: '/caseDetail',
-      //   query: { url: 'http://qingfa.fajuhe.com/home/caseDetail', param: 12769303 }
-      // })
-      console.log('caseData', type, url, param)
-      if (url === '暂无' || url === '') {
-        this.$message('暂无数据')
-      } else if (type === 'outer') {
-        window.open(url)
-      } else {
-        this.$router.push({
-          path: '/caseDetail',
-          query: { url, param }
-        })
-      }
+    // 旧的案例访问请求处理
+    // handeCaseRequest (type, url, param) {
+    //   // this.$router.push({
+    //   //   path: '/caseDetail',
+    //   //   query: { url: 'http://qingfa.fajuhe.com/home/caseDetail', param: 12769303 }
+    //   // })
+    //   console.log('caseData', type, url, param)
+    //   if (url === '暂无' || url === '') {
+    //     this.$message('暂无数据')
+    //   } else if (type === 'outer') {
+    //     window.open(url)
+    //   } else {
+    //     this.$router.push({
+    //       path: '/caseDetail',
+    //       query: { url, param }
+    //     })
+    //   }
+    // },
+    // 旧的案例请求 模版中的代码
+    // handeCaseRequest
+    // (
+    //   getItemCases(item['判例'])[caseKey].type,
+    //   getItemCases(item['判例'])[caseKey].url,
+    //   getItemCases(item['判例'])[caseKey].param
+    // )
+    // 数据本地化后的case request
+    handleLocalCaseRequest (caseKey) {
+      this.$router.push({
+        path: '/caseDetail',
+        query: { caseKey }
+      })
     },
     // 案例名称分割与链接生成
     getItemCases (rawContent) {
@@ -247,7 +257,7 @@ export default {
               let tarKey = (curKey.slice(tarIndex)).trim()
               tarList[tarKey] = caseDict[tarKey]
               if (!caseDict[tarKey]) {
-                console.log('caseList', curKey, 'tarKey', tarKey, caseDict[tarKey])
+                // console.log('caseList', curKey, 'tarKey', tarKey, caseDict[tarKey])
               }
             } else {
               tarList[curKey] = caseDict[curKey]

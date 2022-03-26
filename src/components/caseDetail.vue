@@ -74,27 +74,50 @@ export default {
         path: '/'
       })
     },
+    // 数据本地化后的fetchdata
     fetchData (query) {
       this.loading = true
-      console.log(query)
-      // const url = '/api' + query.url.split('.com')[1] // 测试环境
-      const url = query.url // 正式环境
-      console.log('url', url)
-      let data = new FormData()
-      data.append('case_id', query.param)
-      this.$axios.post(url, data).then((response) => {
-        let msg = response.data.msg
-        let statusCode = response.data.code
-        this.caseData = response.data.info
+      const url = 'http://188.131.144.236:7777/privatelending/getCaseData' // 正式环境
+      const caseKey = query.caseKey
+      this.$axios.get(url, {
+        params: {
+          casekey: caseKey
+        }
+      }).then((response) => {
+        let msg = response.statusText
+        let statusCode = response.status
+        console.log('response.data.info', response.data.info)
+        this.caseData = response.data.info.info
         this.loading = false
-        console.log('caseData', this.caseData)
-        if (statusCode) {
+        console.log(this.caseData)
+        if (statusCode !== 200) {
           this.$message.error('访问数据失败:', msg)
         }
       }).catch(err => {
         console.log(err)
       })
     }
+    // 旧的fetchdata
+    // fetchData (query) {
+    //   this.loading = true
+    //   // const url = '/api' + query.url.split('.com')[1] // 测试环境
+    //   const url = query.url // 正式环境
+    //   console.log('url', url)
+    //   let data = new FormData()
+    //   data.append('case_id', query.param)
+    //   this.$axios.post(url, data).then((response) => {
+    //     let msg = response.data.msg
+    //     let statusCode = response.data.code
+    //     this.caseData = response.data.info
+    //     this.loading = false
+    //     console.log('caseData', this.caseData)
+    //     if (statusCode) {
+    //       this.$message.error('访问数据失败:', msg)
+    //     }
+    //   }).catch(err => {
+    //     console.log(err)
+    //   })
+    // }
   },
   created () {
     this.fetchData(this.$route.query)
